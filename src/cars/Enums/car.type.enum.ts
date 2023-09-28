@@ -1,0 +1,15 @@
+export enum CarType {
+  Sedan = 'Sedan',
+  Coupe = 'Coupe',
+  Convertible = 'Convertible',
+  Hatchback = 'Hatchback',
+  SUV = 'SUV',
+  Crossover = 'Crossover',
+  Minivan = 'Minivan',
+  PickupTruck = 'Pickup Truck',
+  SportsCar = 'Sports Car',
+  LuxuryCar = 'Luxury Car',
+  ElectricCar = 'Electric Car',
+  HybridCar = 'Hybrid Car',
+  Other = 'Other',
+}

@@ -7,6 +7,7 @@ import { singInDTO } from '../DTO/signIn.user.dto';
 import { NotFoundException } from '@nestjs/common';
 import { UserEntity } from 'src/Entity/users.entity';
 import { sendJWT } from 'src/helper/jwt.sender';
+
 const scrypt = promisify(_scrypt);
 
 @Injectable()
@@ -36,7 +37,7 @@ export class authService {
 
       const jwt = sendJWT(String(finalUser.id));
 
-      return { finalUser, jwt };
+      return { ACCESS_TOKEN: jwt };
     } catch (error) {
       console.log('error::', error);
       throw new BadRequestException(error);
@@ -45,7 +46,7 @@ export class authService {
 
   async signIn(Body: singInDTO) {
     const user = await this.userService.getUserByEmail(Body.email);
-
+    console.log(`FOUDN`);
     if (!user) {
       return new NotFoundException(
         `User with this email ${Body.email} was not foudn`,
@@ -59,10 +60,14 @@ export class authService {
       if (testHash.toString('hex') === hash) {
         const jwt = sendJWT(String(user.id));
         console.log(jwt);
-        return { user, jwt };
+        return { ACCESS_TOKEN: jwt };
       } else {
         return new NotFoundException('Wrong Emasil or Password');
       }
     }
+  }
+
+  async logOut() {
+    return { ACCESS_TOKEN: null };
   }
 }

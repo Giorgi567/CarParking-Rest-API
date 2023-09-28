@@ -33,14 +33,14 @@ export class ParkingZoneEntity {
   expired: boolean;
 
   @ManyToOne(() => UserEntity, (user) => user.parkingZone)
-  @JoinColumn({ name: 'CarOwnerId' })
+  @JoinColumn({ name: 'ParkingOwnerID' })
   owner: UserEntity;
 
   @OneToMany(() => CarEntity, (car) => car.parkingZone) // One parking zone can have many parked cars
-  @JoinColumn({ name: 'ParkedHistory' })
+  @JoinColumn({ name: 'expiedParkedHistory' })
   parkingExpiredHistory: CarEntity[];
 
   @OneToMany(() => CarEntity, (car) => car.parkingZone) // One parking zone can have many parked cars
-  @JoinColumn({ name: 'ParkedHistory' })
+  @JoinColumn({ name: 'onGoingParkedHistory' })
   parkingOnGoingistory: CarEntity[];
 }

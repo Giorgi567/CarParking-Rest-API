@@ -101,4 +101,21 @@ export class ParkingService {
       throw new Error(error);
     }
   }
+
+  async deleteParkingZonesWithUser(id: number, User: UserEntity) {
+    try {
+      const parkingZone = await this.parkingRepo.findOne({
+        where: { owner: User },
+      });
+      console.log(parkingZone, 'PARKING ENTITY BEFORE DELETING');
+
+      if (!parkingZone) {
+        return;
+      }
+      await this.parkingRepo.remove(parkingZone);
+      return true;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 }

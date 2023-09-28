@@ -6,7 +6,6 @@ import { createUserDTO } from './DTO/create.user.dto';
 import { updateUserDTO } from './DTO/update.user.dto';
 import { CarsService } from 'src/cars/cars.service';
 import { ParkingService } from 'src/ParkingZones/parking.service';
-
 @Injectable()
 export class UsersService {
   constructor(
@@ -73,13 +72,11 @@ export class UsersService {
     try {
       const user = await this.repo.findOne({ where: { id: id } });
       if (!user) {
-        return new NotFoundException(
-          `User with this id ${user.id} was not found`,
-        );
+        return new NotFoundException(`User with this id ${id} was not found`);
       }
 
       await this.carRepo.deleteCarWithUser(user);
-
+      await this.parkingService.deleteParkingZonesWithUser(id, user);
       await this.repo.remove(user);
       return true;
     } catch (error) {

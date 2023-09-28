@@ -44,7 +44,7 @@ export class CarEntity {
 
   @ManyToOne(() => UserEntity, (user) => user.cars)
   @JoinColumn({ name: 'CarOwnerId' })
-  owner: UserEntity;
+  ownerId: UserEntity;
 
   @ManyToOne(
     () => ParkingZoneEntity,

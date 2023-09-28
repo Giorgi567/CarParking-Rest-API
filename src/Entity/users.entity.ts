@@ -26,7 +26,7 @@ export class UserEntity {
   @Column()
   AccountBalance: number = 100;
 
-  @OneToMany(() => CarEntity, (car) => car.owner)
+  @OneToMany(() => CarEntity, (car) => car.ownerId)
   cars: CarEntity[];
 
   @OneToMany(() => ParkingZoneEntity, (parkingZone) => parkingZone.owner, {

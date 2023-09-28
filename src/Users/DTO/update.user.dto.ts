@@ -23,7 +23,7 @@ export class updateUserDTO {
   @Max(9000000)
   AccountBalance: number = 100;
 
-  @OneToMany(() => CarEntity, (car) => car.owner, { cascade: true })
+  @OneToMany(() => CarEntity, (car) => car.ownerId, { cascade: true })
   cars: CarEntity[];
 
   @OneToMany(() => ParkingZoneEntity, (parkingZone) => parkingZone.owner, {

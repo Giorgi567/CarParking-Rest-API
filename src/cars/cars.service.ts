@@ -59,7 +59,7 @@ export class CarsService {
 
   async getUserCars(user: UserEntity) {
     try {
-      const cars = await this.repo.find({ where: { owner: user } }); // this searches trouh entire DB for spicific users cars i know its VERY inneficent but since sqlite doesnt support embeded ids i had to leave it like this but in real life projects we wont be using sqlite so just ignore this VERY inneficent method lol.
+      const cars = await this.repo.find({ where: { ownerId: user } }); // this searches trouh entire DB for spicific users cars i know its VERY inneficent but since sqlite doesnt support embeded ids i had to leave it like this but in real life projects we wont be using sqlite so just ignore this VERY inneficent method lol.
       return cars;
     } catch (error) {
       return new Error(error);
@@ -112,7 +112,7 @@ export class CarsService {
 
   async deleteCarWithUser(User: UserEntity) {
     try {
-      const car = await this.repo.findOne({ where: { owner: User } });
+      const car = await this.repo.findOne({ where: { ownerId: User } });
       console.log(car, 'bru');
 
       if (!car) {

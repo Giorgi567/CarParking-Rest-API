@@ -6,6 +6,7 @@ import { UsersService } from '../users.service';
 import { singInDTO } from '../DTO/signIn.user.dto';
 import { NotFoundException } from '@nestjs/common';
 import { UserEntity } from 'src/Entity/users.entity';
+import { sendJWT } from 'src/helper/jwt.sender';
 const scrypt = promisify(_scrypt);
 
 @Injectable()
@@ -33,7 +34,9 @@ export class authService {
 
       const finalUser = await this.userService.createUser(Body);
 
-      return finalUser;
+      const jwt = sendJWT(String(finalUser.id));
+
+      return { finalUser, jwt };
     } catch (error) {
       console.log('error::', error);
       throw new BadRequestException(error);
@@ -54,7 +57,9 @@ export class authService {
       const testHash = (await scrypt(Body.password, salt, 32)) as Buffer;
 
       if (testHash.toString('hex') === hash) {
-        return user;
+        const jwt = sendJWT(String(user.id));
+        console.log(jwt);
+        return { user, jwt };
       } else {
         return new NotFoundException('Wrong Emasil or Password');
       }

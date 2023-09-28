@@ -6,8 +6,7 @@ import { createUserDTO } from './DTO/create.user.dto';
 import { updateUserDTO } from './DTO/update.user.dto';
 import { CarsService } from 'src/cars/cars.service';
 import { ParkingService } from 'src/ParkingZones/parking.service';
-import { reserveParkingDTO } from 'src/ParkingZones/DTO/reserve.parking.DTO';
-import { ParkingZoneEntity } from 'src/Entity/parking.entity';
+
 @Injectable()
 export class UsersService {
   constructor(
